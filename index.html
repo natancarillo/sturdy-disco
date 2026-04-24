@@ -166,20 +166,23 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2.5rem;
+            align-items: start; /* Prevents cards from stretching to the same height in a row */
         }
 
         .media-card {
             background: white;
-            padding: 12px 12px 12px 12px;
+            padding: 10px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
             border: 1px solid #eee;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         .media-card.has-label {
-            padding-bottom: 40px;
+            padding-bottom: 30px; /* Reduced from 40 for tighter look */
         }
 
         .media-card:hover {
