@@ -430,8 +430,8 @@
 <body>
 
     <header>
-        <h1>Naše rodinné vzpomínky</h1>
-        <p class="subtitle">Galerie z Břežan</p>
+        <h1 id="main-title" style="cursor: default; user-select: none;">Naše rodinné vzpomínky</h1>
+        <p class="subtitle">Galerie Větve z Břežan</p>
     </header>
 
     <main>
@@ -502,6 +502,26 @@
     </div>
 
     <script>
+        // Hidden reset logic
+        let titleClickCount = 0;
+        document.addEventListener('DOMContentLoaded', () => {
+            const title = document.getElementById('main-title');
+            if (title) {
+                title.addEventListener('click', () => {
+                    titleClickCount++;
+                    if (titleClickCount === 5) {
+                        if (confirm('Chcete resetovat nastavení složky? Aplikace zapomene aktuální cestu a budete ji moci vybrat znovu.')) {
+                            const tx = db.transaction('settings', 'readwrite');
+                            tx.objectStore('settings').clear();
+                            tx.oncomplete = () => location.reload();
+                        }
+                        titleClickCount = 0;
+                    }
+                    setTimeout(() => { titleClickCount = 0; }, 3000);
+                });
+            }
+        });
+
         lucide.createIcons();
 
         let allMedia = [];
